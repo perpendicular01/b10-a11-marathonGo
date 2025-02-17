@@ -29,10 +29,12 @@ export default [
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       'react/jsx-no-target-blank': 'off',
+      '@typescript-eslint/no-unused-vars' : ["warn", { "varsIgnorePattern " : "^_"}],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
+      'react/prop-types' : 'off',
     },
   },
 ]
