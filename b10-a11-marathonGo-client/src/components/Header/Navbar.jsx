@@ -85,7 +85,7 @@ const Navbar = () => {
                 </div>
 
                 {/* left */}
-                <h2 className="text-lg lg:text-2xl dark:text-white font-bold ">FundFusion</h2>
+                <h2 className="text-lg lg:text-2xl dark:text-white font-bold ">MarathonGoo</h2>
                 {/* for md middle */}
                 <div className="hidden list-none lg:flex items-center gap-5 text-sm lg:text-base dark:text-gray-300 ">
                     {links}

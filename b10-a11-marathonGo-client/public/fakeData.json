@@ -1,0 +1,99 @@
+[
+    {
+      "title": "Dhaka City Marathon",
+      "startRegistrationDate": "2025-03-01",
+      "endRegistrationDate": "2025-03-20",
+      "marathonStartDate": "2025-03-30",
+      "location": "Dhaka, Bangladesh",
+      "runningDistance": "25k",
+      "description": "Experience the thrill of running through the heart of Dhaka city.",
+      "marathonImage": "https://ibb.co.com/k2BZQZvR",
+      "createdAt": "2025-02-17T00:00:00Z",
+      "totalRegistrationCount": 0
+    },
+    {
+      "title": "Chittagong Coastal Run",
+      "startRegistrationDate": "2025-04-05",
+      "endRegistrationDate": "2025-04-25",
+      "marathonStartDate": "2025-05-10",
+      "location": "Chittagong, Bangladesh",
+      "runningDistance": "10k",
+      "description": "A scenic run along the beautiful coast of Chittagong.",
+      "marathonImage": "https://ibb.co.com/dJMzHkrb",
+      "createdAt": "2025-02-17T00:00:00Z",
+      "totalRegistrationCount": 0
+    },
+    {
+      "title": "Sylhet Tea Garden Marathon",
+      "startRegistrationDate": "2025-05-01",
+      "endRegistrationDate": "2025-05-15",
+      "marathonStartDate": "2025-05-25",
+      "location": "Sylhet, Bangladesh",
+      "runningDistance": "3k",
+      "description": "Run through the mesmerizing tea gardens of Sylhet.",
+      "marathonImage": "https://ibb.co.com/rKmWMmFw",
+      "createdAt": "2025-02-17T00:00:00Z",
+      "totalRegistrationCount": 0
+    },
+    {
+      "title": "Cox's Bazar Beach Run",
+      "startRegistrationDate": "2025-06-01",
+      "endRegistrationDate": "2025-06-20",
+      "marathonStartDate": "2025-07-05",
+      "location": "Cox's Bazar, Bangladesh",
+      "runningDistance": "25k",
+      "description": "Run along the world's longest sea beach in Cox's Bazar.",
+      "marathonImage": "https://ibb.co.com/svmwYy8H",
+      "createdAt": "2025-02-17T00:00:00Z",
+      "totalRegistrationCount": 0
+    },
+    {
+      "title": "Rangamati Hill Challenge",
+      "startRegistrationDate": "2025-07-10",
+      "endRegistrationDate": "2025-07-30",
+      "marathonStartDate": "2025-08-15",
+      "location": "Rangamati, Bangladesh",
+      "runningDistance": "10k",
+      "description": "A challenging marathon through the scenic hills of Rangamati.",
+      "marathonImage": "https://ibb.co.com/1YFcg1Tb",
+      "createdAt": "2025-02-17T00:00:00Z",
+      "totalRegistrationCount": 0
+    },
+    {
+      "title": "Sundarbans Eco Marathon",
+      "startRegistrationDate": "2025-09-05",
+      "endRegistrationDate": "2025-09-25",
+      "marathonStartDate": "2025-10-10",
+      "location": "Sundarbans, Bangladesh",
+      "runningDistance": "3k",
+      "description": "Run through the lush green trails of the Sundarbans forest.",
+      "marathonImage": "https://ibb.co.com/JwThLwTs",
+      "createdAt": "2025-02-17T00:00:00Z",
+      "totalRegistrationCount": 0
+    },
+    {
+      "title": "Rajshahi Padma River Run",
+      "startRegistrationDate": "2025-11-01",
+      "endRegistrationDate": "2025-11-15",
+      "marathonStartDate": "2025-12-01",
+      "location": "Rajshahi, Bangladesh",
+      "runningDistance": "10k",
+      "description": "Enjoy a refreshing run alongside the Padma River in Rajshahi.",
+      "marathonImage": "https://ibb.co.com/vKSDwtP",
+      "createdAt": "2025-02-17T00:00:00Z",
+      "totalRegistrationCount": 0
+    },
+    {
+      "title": "Khulna City Night Run",
+      "startRegistrationDate": "2025-12-10",
+      "endRegistrationDate": "2025-12-30",
+      "marathonStartDate": "2026-01-10",
+      "location": "Khulna, Bangladesh",
+      "runningDistance": "25k",
+      "description": "Experience an exciting night run through the vibrant streets of Khulna.",
+      "marathonImage": "https://ibb.co.com/KzGVQVM2",
+      "createdAt": "2025-02-17T00:00:00Z",
+      "totalRegistrationCount": 0
+    }
+  ]
+  
