@@ -5,6 +5,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthProvider';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import Lottie from 'lottie-react';
+
+import runn from '../assets/runn.json'
 
 
 const Login = () => {
@@ -90,7 +93,10 @@ const Login = () => {
     return (
         <div className="flex justify-center items-center mt-16 font-poppins">
             <div className="w-[90%] md:w-[60%] lg:w-[35%] mx-auto bg-[#E7E8D1] px-6 md:px-10 py-3">
+                
                 <h2 className="font-semibold text-2xl md:text-3xl text-black text-center pt-3">Login</h2>
+                    
+                
                 <p className="text-center text-black py-2">
                     Continue with{" "}
                     <button
