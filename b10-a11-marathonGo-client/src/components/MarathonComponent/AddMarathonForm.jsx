@@ -30,47 +30,47 @@ const AddMarathonForm = () => {
             return;
         }
 
-        // const marathon = {
-        //     userName: user.displayName,
-        //     userEmail: user.email,
-        //     title,
-        //     startRegistrationDate: startRegDate.toISOString(),
-        //     endRegistrationDate: endRegDate.toISOString(),
-        //     marathonStartDate: marathonDate.toISOString(),
-        //     location,
-        //     runningDistance,
-        //     description,
-        //     marathonImage,
-        //     createdAt: new Date().toISOString(),
-        //     totalRegistrationCount: 0
-        // };
+        const marathon = {
+            userName: user?.displayName,
+            userEmail: user?.email,
+            title,
+            startRegistrationDate: startRegDate.toISOString(),
+            endRegistrationDate: endRegDate.toISOString(),
+            marathonStartDate: marathonDate.toISOString(),
+            location,
+            runningDistance,
+            description,
+            marathonImage,
+            createdAt: new Date().toISOString(),
+            totalRegistrationCount: 0,
+        };
 
-        // try {
-        //     const res = await fetch("https://your-backend-url.com/marathons", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify(marathon)
-        //     });
+        try {
+            const res = await fetch("http://localhost:5000/marathons", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(marathon)
+            });
 
-        //     const data = await res.json();
-        //     if (data.insertedId) {
-        //         Swal.fire({
-        //             title: "Marathon added successfully!",
-        //             icon: "success",
-        //             customClass: {
-        //                 popup: "small-modal"
-        //             }
-        //         });
+            const data = await res.json();
+            if (data.insertedId) {
+                Swal.fire({
+                    title: "Marathon added successfully!",
+                    icon: "success",
+                    customClass: {
+                        popup: "small-modal"
+                    }
+                });
 
-        //         e.target.reset();
-        //         navigate("/allMarathons");
-        //     }
-        // } catch (error) {
-        //     console.error("Error adding marathon:", error);
-        //     setError("Failed to add marathon. Please try again.");
-        // }
+                e.target.reset();
+                navigate("/allMarathons");
+            }
+        } catch (error) {
+            console.error("Error adding marathon:", error);
+            setError("Failed to add marathon. Please try again.");
+        }
     };
 
     return (

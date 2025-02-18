@@ -151,7 +151,92 @@ const client = new MongoClient(uri, {
               })
           }
       })
+      
+      // -----------------------------------------------------------------------------
   
+      // ------------------------.............applications.............................
+      // INSERT A Application
+      app.post("/usersApplications", async(req, res)=> {
+        const application = req.body
+        // console.log("new application : ", application)
+
+        try{
+            const result = await applyCollection.insertOne(application)
+            res.send(result)
+        }
+        catch{
+            res.status(500).send({
+                error: "adding applications falied"
+            })
+        }
+    })
+
+    // get application by EMAIL
+    app.get('/myApplications', async(req, res)=> {
+        const {email} = req.query;
+        // console.log(email)
+        // json er user email er variable lage suppise userEmail
+        const query = {email : email}
+
+        try{
+            const applications = applyCollection.find(query)
+            const result = await applications.toArray()
+            res.send(result)
+        }
+        catch{
+            res.status(500).send({
+                error: "fetch applications falied"
+            })
+
+        }
+    })
+
+    // delete application by id
+    app.delete('/deleteApplication/:id', async(req, res) => {
+        const id = req.params.id;
+        // console.log(id)
+
+        const query = {marathonId : id}
+
+        try{
+            const result = await applyCollection.deleteMany(query)
+            res.send(result)
+        }
+        catch{
+            res.status(500).send({
+                error: "delete marathon falied"
+            })
+        }
+    })
+
+  //   update application
+    app.put("/updateApplication/:id", async(req, res)=> {
+        const id = req.params.id;
+        const marathon = req.body
+        
+
+        const filter = {marathonId : id}
+        const options = {upsert : true}
+        const updatedMarathon = {
+            $set: {
+                 // component gula bosabo
+                
+                
+               
+            }
+        }
+        // console.log(id, updatedmarathon)
+
+        try{
+            const result = await applyCollection.updateOne(filter, updatedMarathon, options)
+            res.send(result)
+        }
+        catch{
+            res.status(500).send({
+                error: "update marathon falied"
+            })
+        }
+    })
       
       
     } finally {
