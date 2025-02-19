@@ -9,7 +9,7 @@ const HomeLayout = () => {
             <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
                 <Navbar></Navbar>
             </div>
-            <div className=" dark:bg-gray-700">
+            <div className="bg-[#FFFDF0] dark:bg-gray-700">
                 <Outlet />
             </div>
             <div className=""> {/* Add padding to account for fixed navbar height */}
