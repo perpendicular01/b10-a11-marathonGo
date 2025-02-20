@@ -1,5 +1,6 @@
 import React from 'react';
-import AddMarathonForm from '../components/MarathonComponent/AddMarathonForm';
+import AddMarathonForm from '../components/Forms/AddMarathonForm';
+
 
 const AddMarathonPage = () => {
     return (

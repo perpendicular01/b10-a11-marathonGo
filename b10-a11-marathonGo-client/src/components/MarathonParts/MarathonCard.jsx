@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const MarathonCard = ({ marathon }) => {
   const { _id: id, title, location, marathonImage } = marathon
-  console.log(marathonImage)
+  // console.log(marathonImage)
   return (
     <div className="max-w-sm rounded-2xl shadow-lg bg-[#A7BEAE] dark:bg-gray-800 p-4 flex flex-col justify-between">
       <div>

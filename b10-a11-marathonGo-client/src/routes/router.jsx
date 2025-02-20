@@ -5,12 +5,13 @@ import AddMarathonPage from "../Pages/AddMarathonPage";
 import MyMarathonPage from "../Pages/MyMarathonPage";
 import MyApplyListPage from "../Pages/MyApplyListPage";
 import AllMarathonsPage from "../Pages/AllMarathonsPage";
-import MarathonDetailsPage from "../Pages/MarathonDetailsPage";
 import UpdateMarathon from "../Pages/UpdateMarathon";
 import AuthLayout from "../Layout/AuthLayout";
 import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
 import ErrorPage from "../Pages/ErrorPage";
+import MarathonDetails from "../Pages/MarathonDetails";
+import RegistrationForm from "../Pages/RegistrationForm";
 
 
 const router = createBrowserRouter([
@@ -27,6 +28,15 @@ const router = createBrowserRouter([
                 element: <MyMarathonPage></MyMarathonPage>
             },
             {
+                path: '/registrationForm/:id',
+                element: <RegistrationForm></RegistrationForm>,
+                loader: async({params}) => {
+                    const res = await fetch(`http://localhost:5000/marathons/${params.id}`)
+                    const marathon = await res.json();
+                    return marathon;
+                }
+            },
+            {
                 path: '/myApplyList',
                 element: <MyApplyListPage></MyApplyListPage>
             },
@@ -36,12 +46,12 @@ const router = createBrowserRouter([
             },
             {
                 path: '/marathon/:id',
-                element: <MarathonDetailsPage></MarathonDetailsPage> ,
-                // loader: async({params}) => {
-                //     const res = await fetch(`https://b10-a10-crowd-funding-server.vercel.app/campaigns/${params.id}`)
-                //     const campaign = await res.json();
-                //     return campaign;
-                // }
+                element: <MarathonDetails></MarathonDetails> ,
+                loader: async({params}) => {
+                    const res = await fetch(`http://localhost:5000/marathons/${params.id}`)
+                    const marathon = await res.json();
+                    return marathon;
+                }
             },
             {
                 path: '/updateMarathon/:id',
