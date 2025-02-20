@@ -1,6 +1,7 @@
 import React from 'react';
 import HomeBanner from '../components/HomeComponents/HomeBanner';
 import HomeMission from '../components/HomeComponents/HomeMission';
+import HomeMarathonCards from '../components/HomeComponents/HomeMarathonCards';
 
 const HomePage = () => {
     return (
@@ -10,6 +11,9 @@ const HomePage = () => {
             </div>
             <div className='pb-10'>
                 <HomeMission></HomeMission>
+            </div>
+            <div>
+                <HomeMarathonCards></HomeMarathonCards>
             </div>
         </div>
     );
