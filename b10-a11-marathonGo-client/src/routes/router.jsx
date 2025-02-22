@@ -5,13 +5,14 @@ import AddMarathonPage from "../Pages/AddMarathonPage";
 import MyMarathonPage from "../Pages/MyMarathonPage";
 import MyApplyListPage from "../Pages/MyApplyListPage";
 import AllMarathonsPage from "../Pages/AllMarathonsPage";
-import UpdateMarathon from "../Pages/UpdateMarathon";
+
 import AuthLayout from "../Layout/AuthLayout";
 import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
 import ErrorPage from "../Pages/ErrorPage";
 import MarathonDetails from "../Pages/MarathonDetails";
 import RegistrationForm from "../Pages/RegistrationForm";
+import UpdateMarathon from "../components/UpdateForm/UpdateMarathon";
 
 
 const router = createBrowserRouter([
@@ -56,11 +57,11 @@ const router = createBrowserRouter([
             {
                 path: '/updateMarathon/:id',
                 element: <UpdateMarathon></UpdateMarathon>,
-                // loader: async({params}) => {
-                //     const res = await fetch(`https://b10-a10-crowd-funding-server.vercel.app/campaigns/${params.id}`)
-                //     const campaign = await res.json()
-                //     return campaign;
-                // }
+                loader: async({params}) => {
+                    const res = await fetch(`http://localhost:5000/marathons/${params.id}`)
+                    const marathon = await res.json()
+                    return marathon;
+                }
             },
             {
                 path: '/addMarathon',

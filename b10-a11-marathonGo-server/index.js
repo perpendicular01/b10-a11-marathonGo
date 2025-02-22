@@ -117,8 +117,16 @@ async function run() {
             const options = { upsert: true }
             const updatedMarathon = {
                 $set: {
+                    title : marathon.title,
+                    location : marathon.location,
+                    runningDistance : marathon.runningDistance,
+                    description : marathon.description,
+                    marathonImage : marathon.marathonImage,
+                    startRegistrationDate : marathon.startRegistrationDate,
+                    endRegistrationDate : marathon.endRegistrationDate,
+                    marathonStartDate : marathon.marathonStartDate,
                     // component gula bosabo
-                    totalRegistrationCount: marathon.totalRegistrationCount
+                    
                 }
             }
             // console.log(id, updatedmarathon)
@@ -234,30 +242,32 @@ async function run() {
         })
 
         //   update application
-        app.put("/updateApplication/:id", async (req, res) => {
+        app.put("/updateUsersApplication/:id", async (req, res) => {
             const id = req.params.id;
-            const marathon = req.body
+            const application = req.body
 
 
-            const filter = { marathonId: id }
+            const filter = {_id: new ObjectId(id)}
             const options = { upsert: true }
-            const updatedMarathon = {
+            const updatedApplication = {
                 $set: {
                     // component gula bosabo
-
-
+                    firstName : application.firstName,
+                    lastName : application.lastName,
+                    contactNumber : application.contactNumber,
+                    additionalInfo : application.additionalInfo,
 
                 }
             }
             // console.log(id, updatedmarathon)
 
             try {
-                const result = await applyCollection.updateOne(filter, updatedMarathon, options)
+                const result = await applyCollection.updateOne(filter, updatedApplication, options)
                 res.send(result)
             }
             catch {
                 res.status(500).send({
-                    error: "update marathon falied"
+                    error: "update Application falied"
                 })
             }
         })

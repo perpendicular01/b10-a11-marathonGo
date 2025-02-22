@@ -21,14 +21,14 @@ const UpcomingMarathonCard = ({ marathon }) => {
 
         <div>
             <h2 className="text-base lg:text-lg font-medium text-gray-800 dark:text-gray-300 mt-2">
-                Registration Start: <span className="font-medium text-blue-800">{new Date(startRegistrationDate).toLocaleDateString()}</span>
+                Registration Start: <span className="font-medium text-blue-800">{new Date(startRegistrationDate).toISOString().split("T")[0]}</span>
             </h2>
             <h2 className="text-base lg:text-lg font-medium text-gray-800 dark:text-gray-300 mb-2 ">
-                Registration End: <span className="font-medium text-blue-800">{new Date(endRegistrationDate).toLocaleDateString()}</span>
+                Registration End: <span className="font-medium text-blue-800">{new Date(endRegistrationDate).toISOString().split("T")[0]}</span>
             </h2>
 
             <h2 className="text-base lg:text-lg font-medium text-red-900">
-                Marathon Date: <span className="font-bold text-red-600">{new Date(marathonStartDate).toLocaleDateString()}</span>
+                Marathon Date: <span className="font-bold text-red-600">{new Date(marathonStartDate).toISOString().split("T")[0]}</span>
             </h2>
             
         </div>

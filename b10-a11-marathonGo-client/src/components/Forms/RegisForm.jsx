@@ -5,6 +5,7 @@ import { AuthContext } from "../../Contexts/AuthProvider";
 
 const RegisForm = () => {
     const { user } = useContext(AuthContext);
+    console.log(user)
     const marathon = useLoaderData()
     const { _id: id, totalRegistrationCount, userEmail, userName, marathonImage: photo, description, runningDistance, startRegistrationDate, endRegistrationDate, marathonStartDate, location, title } = marathon
     
@@ -19,9 +20,11 @@ const RegisForm = () => {
 
         // Create a registration object
         const registrationData = {
-            email: userEmail,
+            email: user.email,
             firstName,
             lastName,
+            location,
+            distance: runningDistance,
             contactNumber,
             additionalInfo,
             marathonId : id,
