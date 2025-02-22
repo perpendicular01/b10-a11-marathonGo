@@ -29,7 +29,7 @@ const HomeMarathonCards = () => {
 
             <div className='w-[75%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 pb-10'>
                 {
-                    marathons.map(marathon => (<MarathonCard key={marathon.id} marathon={marathon} ></MarathonCard>))
+                    marathons.map(marathon => (<MarathonCard key={marathon._id} marathon={marathon} ></MarathonCard>))
                 }
             </div>
         </div>
