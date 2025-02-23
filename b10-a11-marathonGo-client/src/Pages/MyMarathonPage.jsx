@@ -83,7 +83,7 @@ const MyMarathonPage = () => {
                 body: JSON.stringify(updatedMarathon),
             });
     
-            const res2 = await fetch(`http://localhost:5000/updateMarathonApplication/${selectedMarathon._id}`, {
+            const res2 = await fetch(`http://localhost:5000/updateUsersMarathon/${selectedMarathon._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedMarathon),

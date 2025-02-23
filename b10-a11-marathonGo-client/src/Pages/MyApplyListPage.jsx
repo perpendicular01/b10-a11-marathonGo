@@ -69,12 +69,9 @@ const MyApplyListPage = () => {
                     title: "Application updated successfully!",
                     icon: "success",
                 });
+
     
-                setApplications(
-                    applications.map((m) =>
-                        m._id === selectedApplication._id ? { ...m, ...updatedApplication } : m
-                    )
-                );
+                
     
                 closeUpdateModal();
             } else {
@@ -105,17 +102,32 @@ const MyApplyListPage = () => {
                 method: 'DELETE',
             });
 
+            const res2 = await fetch(`http://localhost:5000/decrementApplicant/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({}), 
+            });
 
 
 
-            if (res1.ok ) {
-                setApplications(applications.filter(it => it._id !== id));
+
+            if (res1.ok && res2.ok) {
+                setApplications((prevApplications) => 
+                    prevApplications.filter((app) => app._id !== id)
+                );
+                
                 await Swal.fire({
                     icon: "success",
                     title: "Deleted!",
                     text: "Your Application has been deleted",
     
                 });
+
+
+                setApplications((prevApplications) => 
+                    prevApplications.filter((app) => app._id !== id)
+                );
+    
             }
             else {
                 Swal.fire({

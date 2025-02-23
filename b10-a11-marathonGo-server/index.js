@@ -165,6 +165,29 @@ async function run() {
             }
         });
 
+        // decrement 
+        app.patch("/decrementApplicant/:id", async (req, res) => {
+            const id = req.params.id;
+
+            const filter = { _id: new ObjectId(id) };
+            const updateOperation = {
+                $inc: { totalRegistrationCount: -1 }, // Increment count by 1
+            };
+
+            try {
+                const result = await marathonCollection.updateOne(filter, updateOperation);
+
+                if (result.matchedCount === 0) {
+                    return res.status(404).send({ error: "Marathon not found" });
+                }
+
+                res.send({ message: "Registration count updated successfully", result });
+            } catch (error) {
+                console.error("Error updating marathon:", error);
+                res.status(500).send({ error: "Failed to update marathon" });
+            }
+        });
+
 
         // DELETE A marathon
         app.delete('/deleteMarathons/:id', async (req, res) => {
@@ -206,8 +229,6 @@ async function run() {
         // get application by EMAIL
         app.get('/myApplications', async (req, res) => {
             const { email } = req.query;
-            // console.log(email)
-            // json er user email er variable lage suppise userEmail
             const query = { email: email }
 
             try {
@@ -222,6 +243,21 @@ async function run() {
 
             }
         })
+        
+        app.get("/checkRegistration", async (req, res) => {
+            const { email, marathonId } = req.query;
+        
+            try {
+
+                const query = { email: email, marathonId };
+                const existingRegistration = await applyCollection.findOne(query);
+                res.send({ isRegistered: !!existingRegistration });
+            } catch (error) {
+                console.error("Error checking registration:", error);
+                res.status(500).json({ error: "Internal server error" });
+            }
+        });
+        
 
         // delete application by id
         app.delete('/deleteApplication/:id', async (req, res) => {
@@ -256,6 +292,37 @@ async function run() {
                     lastName : application.lastName,
                     contactNumber : application.contactNumber,
                     additionalInfo : application.additionalInfo,
+
+                }
+            }
+            // console.log(id, updatedmarathon)
+
+            try {
+                const result = await applyCollection.updateOne(filter, updatedApplication, options)
+                res.send(result)
+            }
+            catch {
+                res.status(500).send({
+                    error: "update Application falied"
+                })
+            }
+        })
+
+
+        app.put("/updateUsersMarathon/:id", async (req, res) => {
+            const id = req.params.id;
+            const marathon = req.body
+
+
+            const filter = {_id: new ObjectId(id)}
+            const options = { upsert: true }
+            const updatedApplication = {
+                $set: {
+                    // component gula bosabo
+                    distance : marathon.runningDistance,
+                    location : marathon.location,
+                    marathonTitle : marathon.title,
+                    startDate : marathon.marathonStartDate,
 
                 }
             }
