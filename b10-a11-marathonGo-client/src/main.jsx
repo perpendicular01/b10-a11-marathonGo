@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import router from './routes/router'
 import AuthProvider from './Contexts/AuthProvider'
 import MarathonProvider from './Contexts/MarathonProvider'
+import { ToastContainer } from 'react-toastify'
 
 
 
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')).render(
     <AuthProvider>
       <MarathonProvider>
         <RouterProvider router={router} />
+        <ToastContainer></ToastContainer>
       </MarathonProvider>
     </AuthProvider>
   </StrictMode>,

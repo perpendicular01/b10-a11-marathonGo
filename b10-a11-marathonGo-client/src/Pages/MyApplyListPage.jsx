@@ -195,6 +195,35 @@ const MyApplyListPage = () => {
                         <h3 className="font-bold text-lg text-center">Update Application</h3>
                         {selectedApplication && (
                             <form onSubmit={handleUpdateApplication} className="card-body">
+                                <div className="flex justify-between mt-1">
+                                    <div className="form-control w-[48%]">
+                                        <label className="label mb-1">
+                                            <span className="label-text text-black text-lg">Title</span>
+                                        </label>
+                                        <input
+                                        name="title"
+                                        type="text"
+                                        className="input input-bordered w-full"
+                                        value={selectedApplication.marathonTitle}
+                                        readOnly
+                                        required
+                                    />
+                                        
+                                    </div>
+                                    <div className="form-control w-[48%]">
+                                        <label className="label mb-1">
+                                            <span className="label-text text-black text-lg">Marathon Day</span>
+                                        </label>
+                                        <DatePicker
+                                            selected={selectedApplication.startDate}
+                                            className="input input-bordered w-full"
+                                            placeholderText="Select Date"
+                                            required
+                                        />
+                                    </div>
+                                    
+                                </div>
+                                
                                 <div className="form-control w-full mt-1">
                                     <label className="label mb-2">
                                         <span className="label-text text-black text-lg">First Name</span>

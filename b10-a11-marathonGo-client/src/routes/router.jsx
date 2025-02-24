@@ -13,6 +13,7 @@ import ErrorPage from "../Pages/ErrorPage";
 import MarathonDetails from "../Pages/MarathonDetails";
 import RegistrationForm from "../Pages/RegistrationForm";
 import UpdateMarathon from "../components/UpdateForm/UpdateMarathon";
+import PrivateRouter from "./PrivateRouter";
 
 
 const router = createBrowserRouter([
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/myMarathonList',
-                element: <MyMarathonPage></MyMarathonPage>
+                element: <PrivateRouter> <MyMarathonPage></MyMarathonPage></PrivateRouter>
             },
             {
                 path: '/registrationForm/:id',
@@ -39,15 +40,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/myApplyList',
-                element: <MyApplyListPage></MyApplyListPage>
+                element: <PrivateRouter> <MyApplyListPage></MyApplyListPage> </PrivateRouter>
             },
             {
                 path: '/allMarathons',
-                element: <AllMarathonsPage></AllMarathonsPage>
+                element: <PrivateRouter> <AllMarathonsPage></AllMarathonsPage> </PrivateRouter>
             },
             {
                 path: '/marathon/:id',
-                element: <MarathonDetails></MarathonDetails> ,
+                element: <PrivateRouter> <MarathonDetails></MarathonDetails> </PrivateRouter> ,
                 loader: async({params}) => {
                     const res = await fetch(`http://localhost:5000/marathons/${params.id}`)
                     const marathon = await res.json();
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/updateMarathon/:id',
-                element: <UpdateMarathon></UpdateMarathon>,
+                element: <PrivateRouter> <UpdateMarathon></UpdateMarathon> </PrivateRouter>,
                 loader: async({params}) => {
                     const res = await fetch(`http://localhost:5000/marathons/${params.id}`)
                     const marathon = await res.json()
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/addMarathon',
-                element: <AddMarathonPage></AddMarathonPage>
+                element: <PrivateRouter> <AddMarathonPage></AddMarathonPage> </PrivateRouter>
             },
             
             

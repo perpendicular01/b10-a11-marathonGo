@@ -1,6 +1,13 @@
 const Footer = () => {
     return (
         <footer className="footer footer-horizontal footer-center  bg-[#303235] text-white rounded p-10">
+            {/* title and description */}
+            <div className="w-[100%] md:w-[75%] lg:w-[52%] mx-auto">
+                <h2 className="text-2xl font-semibold"> MarathonGo</h2>
+                <p className="text-base font-medium text-gray-400">Marathon Management System is a platform designed to connect marathon organizers with participants.
+                     Easily explore, register, and manage marathon events with a seamless experience. Join us and be part of the race!</p>
+            </div>
+            
             {/* Navigation Links */}
             <nav className="grid  md:grid-flow-col gap-4">
                 <a className="link link-hover text-white">About us</a>

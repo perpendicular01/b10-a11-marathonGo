@@ -49,7 +49,7 @@ const Login = () => {
             const message = error.message
             const code = error.code
 
-            toast.error(`Error Message: ${message}`, {
+            toast.error(`Incorrect Password`, {
                 position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: false,

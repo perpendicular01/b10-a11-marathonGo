@@ -74,7 +74,7 @@ const AddMarathonForm = () => {
     };
 
     return (
-        <div className="max-w-[600px] mx-auto bg-[#E7E8D1]">
+        <div className="max-w-[600px] mx-auto bg-[#E7E8D1] ">
             <div className="flex items-center justify-center gap-3">
                 <h3 className="pt-8 text-center font-bold text-2xl md:text-3xl text-blue-950">
                     Add New Marathon
