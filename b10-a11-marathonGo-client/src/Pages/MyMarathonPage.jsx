@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import useAxioSecure from "../hooks/useAxioSecure";
 
 const MyMarathonPage = () => {
     const [marathons, setMarathons] = useState([]);
@@ -16,15 +17,20 @@ const MyMarathonPage = () => {
     const [marathonDate, setMarathonDate] = useState(new Date());
     const [error, setError] = useState([])
 
+    const axioSecure = useAxioSecure()
+
     // const [error, setError] = useState("");
 
     useEffect(() => {
         if (!user?.email) return;
 
         const fetchMarathons = async () => {
-            const res = await fetch(`http://localhost:5000/myMarathons?email=${user.email}`);
-            const data = await res.json();
-            setMarathons(data);
+            // const res = await fetch(`http://localhost:5000/myMarathons?email=${user.email}`);
+            // const data = await res.json();
+            // setMarathons(data);
+
+            axioSecure.get(`/myMarathons?email=${user.email}`)
+            .then(res => setMarathons(res.data))
         };
         fetchMarathons();
     }, [user]);

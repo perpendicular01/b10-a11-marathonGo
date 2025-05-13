@@ -5,6 +5,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import axios from "axios";
+import useAxioSecure from "../hooks/useAxioSecure";
 
 const MyApplyListPage = () => {
     const [applications, setApplications] = useState([]);
@@ -12,15 +14,19 @@ const MyApplyListPage = () => {
     const [selectedApplication, setSelectedApplication] = useState(null); 
     const [error, setError] = useState([])
 
+    const axioSecure = useAxioSecure()
+
     // const [error, setError] = useState("");
 
     useEffect(() => {
         if (!user?.email) return;
 
         const fetchApplications = async () => {
-            const res = await fetch(`http://localhost:5000/myApplications?email=${user.email}`);
-            const data = await res.json();
-            setApplications(data);
+            // const res = await fetch(`http://localhost:5000/myApplications?email=${user.email}`);
+            // const data = await res.json();
+            // setApplications(data);
+            axioSecure.get(`/myApplications?email=saifkarim@gmail.com`)
+            .then(res => setApplications(res.data))
         };
         fetchApplications();
     }, [user]);
