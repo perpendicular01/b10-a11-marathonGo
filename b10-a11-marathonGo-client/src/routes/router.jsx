@@ -57,7 +57,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/updateMarathon/:id',
-                element: <PrivateRouter> <UpdateMarathon></UpdateMarathon> </PrivateRouter>,
+                element: <PrivateRouter> <div></div> </PrivateRouter>,
                 loader: async({params}) => {
                     const res = await fetch(`http://localhost:5000/marathons/${params.id}`)
                     const marathon = await res.json()

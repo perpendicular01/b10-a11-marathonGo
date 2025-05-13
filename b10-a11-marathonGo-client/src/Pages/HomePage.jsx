@@ -4,10 +4,15 @@ import HomeMission from '../components/HomeComponents/HomeMission';
 import HomeMarathonCards from '../components/HomeComponents/HomeMarathonCards';
 import HomeUpcomingCards from '../components/HomeComponents/HomeUpcomingCards';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const HomePage = () => {
     return (
         <div >
+            <Helmet>
+                <title> Home </title>
+            </Helmet>
+            
             <div className='mt-10'>
                 <HomeBanner></HomeBanner>
             </div>

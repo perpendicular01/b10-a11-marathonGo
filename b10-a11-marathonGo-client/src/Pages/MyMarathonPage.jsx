@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const MyMarathonPage = () => {
     const [marathons, setMarathons] = useState([]);
@@ -156,6 +157,10 @@ const MyMarathonPage = () => {
 
     return (
         <div>
+            <Helmet>
+                <title> My Marathons </title>
+            </Helmet>
+
             <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-red-950 underline pt-20 lg:pt-28 pb-8 ml-4 lg:ml-12">
                 My Marathons:
             </h2>
