@@ -44,6 +44,15 @@ const MyApplyListPage = () => {
         setError("");
     };
 
+    const fetchApplications = async () => {
+        if (!user?.email) return;
+        try {
+            const res = await axioSecure.get(`/myApplications?email=${user.email}&search=${search}`);
+            setApplications(res.data);
+        } catch (err) {
+            console.error("Failed to fetch applications", err);
+        }
+    };
 
     const handleUpdateApplication = async (e) => {
         e.preventDefault();
@@ -55,8 +64,6 @@ const MyApplyListPage = () => {
         const updatedContactNumber = form.get("contactNumber");
         const updatedAdditionalInfo = form.get("additionalInfo");
 
-
-
         const updatedApplication = {
             firstName: updatedFirstName,
             lastName: updatedLastName,
@@ -65,31 +72,80 @@ const MyApplyListPage = () => {
         };
 
         try {
-            const res1 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/updateUsersApplication/${selectedApplication._id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(updatedApplication),
-            });
-
-
+            const res1 = await fetch(
+                `https://b10-a11-marathon-go-server.vercel.app/updateUsersApplication/${selectedApplication._id}`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedApplication),
+                }
+            );
 
             if (res1.ok) {
+                await fetchApplications();
+
                 Swal.fire({
                     title: "Application updated successfully!",
                     icon: "success",
                 });
-
-
-
 
                 closeUpdateModal();
             } else {
                 setError("Failed to update application. Please try again.");
             }
         } catch (error) {
+            console.error(error);
             setError("Failed to update application. Please try again.");
         }
     };
+
+
+
+    // const handleUpdateApplication = async (e) => {
+    //     e.preventDefault();
+    //     if (!selectedApplication) return;
+
+    //     const form = new FormData(e.target);
+    //     const updatedFirstName = form.get("firstName");
+    //     const updatedLastName = form.get("lastName");
+    //     const updatedContactNumber = form.get("contactNumber");
+    //     const updatedAdditionalInfo = form.get("additionalInfo");
+
+
+
+    //     const updatedApplication = {
+    //         firstName: updatedFirstName,
+    //         lastName: updatedLastName,
+    //         contactNumber: updatedContactNumber,
+    //         additionalInfo: updatedAdditionalInfo,
+    //     };
+
+    //     try {
+    //         const res1 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/updateUsersApplication/${selectedApplication._id}`, {
+    //             method: "PUT",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify(updatedApplication),
+    //         });
+
+
+
+    //         if (res1.ok) {
+    //             Swal.fire({
+    //                 title: "Application updated successfully!",
+    //                 icon: "success",
+    //             });
+
+
+
+
+    //             closeUpdateModal();
+    //         } else {
+    //             setError("Failed to update application. Please try again.");
+    //         }
+    //     } catch (error) {
+    //         setError("Failed to update application. Please try again.");
+    //     }
+    // };
 
 
     const handleDeleteApplication = async (id) => {
@@ -121,7 +177,7 @@ const MyApplyListPage = () => {
 
 
             if (res1.ok && res2.ok) {
-                setApplications(applications.filter(it => it._id !== id));
+                
 
                 await Swal.fire({
                     icon: "success",
@@ -129,10 +185,11 @@ const MyApplyListPage = () => {
                     text: "Your Application has been deleted",
 
                 });
+                await fetchApplications();
 
-                
 
-                
+
+
             }
             else {
                 Swal.fire({
@@ -290,7 +347,7 @@ const MyApplyListPage = () => {
                                         required
                                     />
                                 </div>
-                                additionalInfo
+
 
                                 <div className="form-control w-full mt-1">
                                     <label className="label mb-1">

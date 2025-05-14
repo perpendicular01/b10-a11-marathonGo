@@ -2,20 +2,28 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MarathonContext } from '../../Contexts/MarathonProvider';
 import AllMarathonCard from './AllMarathonCard';
+import useAxioSecure from "../../hooks/useAxioSecure";
+import { AuthContext } from "../../Contexts/AuthProvider";
+
 
 
 const MarathonTable = () => {
     const { marathons, setMarathons } = useContext(MarathonContext);
     const [sortOrder, setSortOrder] = useState('desc')
 
+    const axioSecure = useAxioSecure()
+    const { user } = useContext(AuthContext);
 
 
     useEffect(() => {
         const fetchMarathons = async () => {
-            const res = await fetch(`https://b10-a11-marathon-go-server.vercel.app/marathons?sort=${sortOrder}`);
-            const data = await res.json();
+            // const res = await fetch(`https://b10-a11-marathon-go-server.vercel.app/marathons?sort=${sortOrder}`);
+            // const data = await res.json();
 
-            setMarathons(data);
+            // setMarathons(data);
+
+            axioSecure.get(`/marathons?email=${user.email}&sort=${sortOrder}`)
+            .then(res => setMarathons(res.data))
             // console.log(data);
         }
 

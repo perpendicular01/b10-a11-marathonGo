@@ -88,7 +88,16 @@ async function run() {
         // ----------------------marathons---------------------------
 
         // get all marathons
-        app.get('/marathons', async (req, res) => {
+        app.get('/marathons', verifyToken, async (req, res) => {
+            const { email } = req.query;
+
+            const query = { userEmail: email }
+
+            if (req.user.email !== req.query.email) {
+                return res.status(403).send({ message: 'forbidden access' })
+            }
+
+            
             try {
                 const sortOrder = req.query.sort === 'asc' ? -1 : 1;
 

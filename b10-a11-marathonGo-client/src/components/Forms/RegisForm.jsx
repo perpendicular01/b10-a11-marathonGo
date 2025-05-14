@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 
 const RegisForm = () => {
@@ -14,6 +14,8 @@ const RegisForm = () => {
     const [lastName, setLastName] = useState("");
     const [contactNumber, setContactNumber] = useState("");
     const [additionalInfo, setAdditionalInfo] = useState("");
+
+    const navigate = useNavigate()
 
     const handleRegistration = async (e) => {
         e.preventDefault();
@@ -62,6 +64,8 @@ const RegisForm = () => {
                 setLastName("");
                 setContactNumber("");
                 setAdditionalInfo("");
+
+                navigate('/allMarathons')
             }
         } catch (error) {
             Swal.fire({
