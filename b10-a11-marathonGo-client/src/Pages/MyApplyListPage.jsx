@@ -121,9 +121,7 @@ const MyApplyListPage = () => {
 
 
             if (res1.ok && res2.ok) {
-                setApplications((prevApplications) =>
-                    prevApplications.filter((app) => app._id !== id)
-                );
+                setApplications(applications.filter(it => it._id !== id));
 
                 await Swal.fire({
                     icon: "success",
@@ -132,11 +130,9 @@ const MyApplyListPage = () => {
 
                 });
 
+                
 
-                setApplications((prevApplications) =>
-                    prevApplications.filter((app) => app._id !== id)
-                );
-
+                
             }
             else {
                 Swal.fire({
