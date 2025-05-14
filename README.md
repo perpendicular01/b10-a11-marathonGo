@@ -2,6 +2,9 @@
 The **MarathonGoo** is a full-stack web application that allows users to create, explore, and register for marathon events. The platform connects organizers with participants and streamlines event management with an interactive dashboard, secure authentication, and a responsive user interface.
 
 
+## Live site link
+https://marathongp-pdpepe.web.app/
+
 ## 🚀 Key Features
 
 - 🧾 **Marathon CRUD**: Authenticated users can add, update, and delete marathons.
