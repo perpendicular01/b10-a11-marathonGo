@@ -4,7 +4,7 @@ import { AuthContext } from "../Contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const axioInstance = axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: "https://b10-a11-marathon-go-server.vercel.app",
     withCredentials: true
 })
 

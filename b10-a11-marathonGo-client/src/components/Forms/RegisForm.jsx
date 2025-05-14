@@ -34,7 +34,7 @@ const RegisForm = () => {
 
         try {
             // Save registration in the database
-            const res = await fetch("http://localhost:5000/usersApplications", {
+            const res = await fetch("https://b10-a11-marathon-go-server.vercel.app/usersApplications", {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json" 
@@ -46,7 +46,7 @@ const RegisForm = () => {
 
             if(data.insertedId) {
                 // Increment total registration count
-                await fetch(`http://localhost:5000/marathons/${id}`, {
+                await fetch(`https://b10-a11-marathon-go-server.vercel.app/marathons/${id}`, {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({}), 

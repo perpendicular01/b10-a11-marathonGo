@@ -41,7 +41,7 @@ const UpdateMarathon = () => {
         };
 
         try {
-            const res = await fetch(`http://localhost:5000/marathons/${id}`, {
+            const res = await fetch(`https://b10-a11-marathon-go-server.vercel.app/marathons/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedMarathon),

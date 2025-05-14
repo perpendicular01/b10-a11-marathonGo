@@ -46,7 +46,7 @@ const AddMarathonForm = () => {
         };
 
         try {
-            const res = await fetch("http://localhost:5000/marathons", {
+            const res = await fetch("https://b10-a11-marathon-go-server.vercel.app/marathons", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

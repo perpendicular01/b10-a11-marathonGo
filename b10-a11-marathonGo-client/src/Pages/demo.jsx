@@ -17,7 +17,7 @@ const MyApplyListPage = () => {
         if (!user?.email) return;
 
         const fetchApplications = async () => {
-            const res = await fetch(`http://localhost:5000/myApplications?email=${user.email}`);
+            const res = await fetch(`https://b10-a11-marathon-go-server.vercel.app/myApplications?email=${user.email}`);
             const data = await res.json();
             setApplications(data);
         };
@@ -56,7 +56,7 @@ const MyApplyListPage = () => {
         };
     
         try {
-            const res1 = await fetch(`http://localhost:5000/updateUsersApplication/${selectedApplication._id}`, {
+            const res1 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/updateUsersApplication/${selectedApplication._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedApplication),
@@ -101,7 +101,7 @@ const MyApplyListPage = () => {
         if (alert.isConfirmed) {
             
 
-            const res1 = await fetch(`http://localhost:5000/deleteApplication/${id}`, {
+            const res1 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/deleteApplication/${id}`, {
                 method: 'DELETE',
             });
 

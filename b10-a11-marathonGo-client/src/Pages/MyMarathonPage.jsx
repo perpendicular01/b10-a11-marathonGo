@@ -25,7 +25,7 @@ const MyMarathonPage = () => {
         if (!user?.email) return;
 
         const fetchMarathons = async () => {
-            // const res = await fetch(`http://localhost:5000/myMarathons?email=${user.email}`);
+            // const res = await fetch(`https://b10-a11-marathon-go-server.vercel.app/myMarathons?email=${user.email}`);
             // const data = await res.json();
             // setMarathons(data);
 
@@ -84,13 +84,13 @@ const MyMarathonPage = () => {
         };
     
         try {
-            const res1 = await fetch(`http://localhost:5000/marathons/${selectedMarathon._id}`, {
+            const res1 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/marathons/${selectedMarathon._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedMarathon),
             });
     
-            const res2 = await fetch(`http://localhost:5000/updateUsersMarathon/${selectedMarathon._id}`, {
+            const res2 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/updateUsersMarathon/${selectedMarathon._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedMarathon),
@@ -133,12 +133,12 @@ const MyMarathonPage = () => {
         if (alert.isConfirmed) {
             
 
-            const res1 = await fetch(`http://localhost:5000/deleteMarathons/${id}`, {
+            const res1 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/deleteMarathons/${id}`, {
                 method: 'DELETE',
             });
 
 
-            const res2 = await fetch(`http://localhost:5000/deleteApplication/${id}`, {
+            const res2 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/deleteApplication/${id}`, {
                 method: 'DELETE',
             })
 

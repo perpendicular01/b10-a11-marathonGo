@@ -10,7 +10,10 @@ const app = express()
 
 
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: ['http://localhost:5173',
+        'https://marathongp-pdpepe.web.app',
+        'https://marathongp-pdpepe.firebaseapp.com'
+    ],
     credentials: true
 }))
 app.use(express.json())
@@ -19,13 +22,13 @@ app.use(cookieParser())
 const verifyToken = (req, res, next) => {
     const token = req.cookies?.token;
 
-    if(!token){
-        return res.status(401).send({message : 'unauthorized access'})
+    if (!token) {
+        return res.status(401).send({ message: 'unauthorized access' })
     }
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if(err){
-            return res.status(401).send({message : 'unauthorized access'})
+        if (err) {
+            return res.status(401).send({ message: 'unauthorized access' })
         }
 
         req.user = decoded
@@ -60,34 +63,42 @@ async function run() {
         const applyCollection = database.collection("applications")
 
         // --------------------------jwt--------------------------------
-        app.post('/jwt', async(req, res) => {
+        app.post('/jwt', async (req, res) => {
             const user = req.body;
             const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
 
             res
-            .cookie('token', token, {
-                httpOnly: true,
-                secure: true
-            })
-            .send({success: true})
+                .cookie('token', token, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+                })
+                .send({ success: true })
         })
 
-        app.post('/logout', async(req, res) => {
+        app.post('/logout', async (req, res) => {
             res.
-            clearCookie('token', {
-                httpOnly: true,
-                secure: false
-            })
-            .send({success : true})
+                clearCookie('token', {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+                })
+                .send({ success: true })
         })
         // ----------------------marathons---------------------------
 
         // get all marathons
         app.get('/marathons', async (req, res) => {
             try {
-                const marathons = marathonCollection.find()
-                const result = await marathons.toArray()
-                res.send(result)
+                const sortOrder = req.query.sort === 'asc' ? -1 : 1;
+
+
+                const marathons = await marathonCollection
+                    .find()
+                    .sort({ createdAt: sortOrder })
+                    .toArray();
+
+                res.send(marathons);
                 // console.log(marathons)
             }
             catch {
@@ -97,11 +108,30 @@ async function run() {
             }
         })
 
+        // highlightes
+        app.get('/marathons/highlighted', async (req, res) => {
+            try {
+                const marathons = await marathonCollection
+                    .find()
+                    .limit(6)
+                    .toArray();
+
+                res.send(marathons);
+            } catch {
+                res.status(500).send({
+                    error: "Fetching highlighted marathons failed"
+                });
+            }
+        });
+
+
         // get marathon by id
         app.get('/marathons/:id', async (req, res) => {
             const id = req.params.id;
             // console.log(id)
             const query = { _id: new ObjectId(id) }
+
+
 
             try {
                 const result = await marathonCollection.findOne(query)
@@ -121,8 +151,8 @@ async function run() {
 
             const query = { userEmail: email }
 
-            if(req.user.email !== req.query.email){
-                return res.status(403).send({message : 'forbidden access'})
+            if (req.user.email !== req.query.email) {
+                return res.status(403).send({ message: 'forbidden access' })
             }
 
             try {
@@ -165,16 +195,16 @@ async function run() {
             const options = { upsert: true }
             const updatedMarathon = {
                 $set: {
-                    title : marathon.title,
-                    location : marathon.location,
-                    runningDistance : marathon.runningDistance,
-                    description : marathon.description,
-                    marathonImage : marathon.marathonImage,
-                    startRegistrationDate : marathon.startRegistrationDate,
-                    endRegistrationDate : marathon.endRegistrationDate,
-                    marathonStartDate : marathon.marathonStartDate,
+                    title: marathon.title,
+                    location: marathon.location,
+                    runningDistance: marathon.runningDistance,
+                    description: marathon.description,
+                    marathonImage: marathon.marathonImage,
+                    startRegistrationDate: marathon.startRegistrationDate,
+                    endRegistrationDate: marathon.endRegistrationDate,
+                    marathonStartDate: marathon.marathonStartDate,
                     // component gula bosabo
-                    
+
                 }
             }
             // console.log(id, updatedmarathon)
@@ -279,11 +309,18 @@ async function run() {
             const { email } = req.query;
             const query = { email: email }
 
+            const search = req.query?.search
+            // console.log(req.query)
+
+            if (search) {
+                query.marathonTitle = { $regex: search, $options: "i" }
+            }
+
             // console.log(req.cookies?.token)
 
 
-            if(req.user.email !== req.query.email){
-                return res.status(403).send({message : 'forbidden access'})
+            if (req.user.email !== req.query.email) {
+                return res.status(403).send({ message: 'forbidden access' })
             }
 
             try {
@@ -298,10 +335,10 @@ async function run() {
 
             }
         })
-        
+
         app.get("/checkRegistration", async (req, res) => {
             const { email, marathonId } = req.query;
-        
+
             try {
 
                 const query = { email: email, marathonId };
@@ -312,7 +349,7 @@ async function run() {
                 res.status(500).json({ error: "Internal server error" });
             }
         });
-        
+
 
         // delete application by id
         app.delete('/deleteApplication/:id', async (req, res) => {
@@ -338,15 +375,15 @@ async function run() {
             const application = req.body
 
 
-            const filter = {_id: new ObjectId(id)}
+            const filter = { _id: new ObjectId(id) }
             const options = { upsert: true }
             const updatedApplication = {
                 $set: {
                     // component gula bosabo
-                    firstName : application.firstName,
-                    lastName : application.lastName,
-                    contactNumber : application.contactNumber,
-                    additionalInfo : application.additionalInfo,
+                    firstName: application.firstName,
+                    lastName: application.lastName,
+                    contactNumber: application.contactNumber,
+                    additionalInfo: application.additionalInfo,
 
                 }
             }
@@ -369,15 +406,15 @@ async function run() {
             const marathon = req.body
 
 
-            const filter = {_id: new ObjectId(id)}
+            const filter = { _id: new ObjectId(id) }
             const options = { upsert: true }
             const updatedApplication = {
                 $set: {
                     // component gula bosabo
-                    distance : marathon.runningDistance,
-                    location : marathon.location,
-                    marathonTitle : marathon.title,
-                    startDate : marathon.marathonStartDate,
+                    distance: marathon.runningDistance,
+                    location: marathon.location,
+                    marathonTitle: marathon.title,
+                    startDate: marathon.marathonStartDate,
 
                 }
             }

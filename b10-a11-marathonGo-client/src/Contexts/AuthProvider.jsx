@@ -57,7 +57,7 @@ const AuthProvider = ( {children} ) => {
             if(currUser?.email){
                 const user = {email: currUser?.email}
 
-                axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+                axios.post('https://b10-a11-marathon-go-server.vercel.app/jwt', user, {withCredentials: true})
                 .then(res => {
                     console.log(res.data)
                     // console.log('hello')
@@ -65,7 +65,7 @@ const AuthProvider = ( {children} ) => {
                 })
             }
             else{
-                axios.post('http://localhost:5000/logout', {}, {
+                axios.post('https://b10-a11-marathon-go-server.vercel.app/logout', {}, {
                     withCredentials: true
                 })
                 .then(res => {

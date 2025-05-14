@@ -7,14 +7,18 @@ const HomeUpcomingCards = () => {
 
     useEffect(()=> {
         const fetchMarathons = async() => {
-            const res = await fetch('http://localhost:5000/marathons');
+            const res = await fetch('https://b10-a11-marathon-go-server.vercel.app/marathons');
             const data = await res.json()
             const today = new Date()
 
             // Filter only running campaigns
-             const upcomingMarathons = data.filter(marathon => new Date(marathon.marathonStartDate) > today);
+            const upcomingMarathons = data
+            .filter(marathon => new Date(marathon.marathonStartDate) > today)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 6);
+          
             console.log(upcomingMarathons)
-             setMarathons(upcomingMarathons.slice(0, 6));
+            setMarathons(upcomingMarathons);
         }
 
         fetchMarathons();

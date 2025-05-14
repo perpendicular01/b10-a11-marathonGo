@@ -7,12 +7,14 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import useAxioSecure from "../hooks/useAxioSecure";
+import { CiSearch } from "react-icons/ci";
 
 const MyApplyListPage = () => {
     const [applications, setApplications] = useState([]);
     const { user } = useContext(AuthContext);
-    const [selectedApplication, setSelectedApplication] = useState(null); 
+    const [selectedApplication, setSelectedApplication] = useState(null);
     const [error, setError] = useState([])
+    const [search, setSearch] = useState("")
 
     const axioSecure = useAxioSecure()
 
@@ -22,14 +24,14 @@ const MyApplyListPage = () => {
         if (!user?.email) return;
 
         const fetchApplications = async () => {
-            // const res = await fetch(`http://localhost:5000/myApplications?email=${user.email}`);
+            // const res = await fetch(`https://b10-a11-marathon-go-server.vercel.app/myApplications?email=${user.email}`);
             // const data = await res.json();
             // setApplications(data);
-            axioSecure.get(`/myApplications?email=saifkarim@gmail.com`)
-            .then(res => setApplications(res.data))
+            axioSecure.get(`/myApplications?email=${user.email}&search=${search}`)
+                .then(res => setApplications(res.data))
         };
         fetchApplications();
-    }, [user]);
+    }, [user, search]);
 
     const openUpdateModal = (application) => {
         setSelectedApplication(application);
@@ -46,40 +48,40 @@ const MyApplyListPage = () => {
     const handleUpdateApplication = async (e) => {
         e.preventDefault();
         if (!selectedApplication) return;
-       
+
         const form = new FormData(e.target);
         const updatedFirstName = form.get("firstName");
         const updatedLastName = form.get("lastName");
         const updatedContactNumber = form.get("contactNumber");
         const updatedAdditionalInfo = form.get("additionalInfo");
-    
-        
-    
+
+
+
         const updatedApplication = {
             firstName: updatedFirstName,
             lastName: updatedLastName,
             contactNumber: updatedContactNumber,
             additionalInfo: updatedAdditionalInfo,
         };
-    
+
         try {
-            const res1 = await fetch(`http://localhost:5000/updateUsersApplication/${selectedApplication._id}`, {
+            const res1 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/updateUsersApplication/${selectedApplication._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedApplication),
             });
-    
-            
-    
+
+
+
             if (res1.ok) {
                 Swal.fire({
                     title: "Application updated successfully!",
                     icon: "success",
                 });
 
-    
-                
-    
+
+
+
                 closeUpdateModal();
             } else {
                 setError("Failed to update application. Please try again.");
@@ -88,7 +90,7 @@ const MyApplyListPage = () => {
             setError("Failed to update application. Please try again.");
         }
     };
-    
+
 
     const handleDeleteApplication = async (id) => {
 
@@ -103,38 +105,38 @@ const MyApplyListPage = () => {
         });
 
         if (alert.isConfirmed) {
-            
 
-            const res1 = await fetch(`http://localhost:5000/deleteApplication/${id}`, {
+
+            const res1 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/deleteApplication/${id}`, {
                 method: 'DELETE',
             });
 
-            const res2 = await fetch(`http://localhost:5000/decrementApplicant/${id}`, {
+            const res2 = await fetch(`https://b10-a11-marathon-go-server.vercel.app/decrementApplicant/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({}), 
+                body: JSON.stringify({}),
             });
 
 
 
 
             if (res1.ok && res2.ok) {
-                setApplications((prevApplications) => 
+                setApplications((prevApplications) =>
                     prevApplications.filter((app) => app._id !== id)
                 );
-                
+
                 await Swal.fire({
                     icon: "success",
                     title: "Deleted!",
                     text: "Your Application has been deleted",
-    
+
                 });
 
 
-                setApplications((prevApplications) => 
+                setApplications((prevApplications) =>
                     prevApplications.filter((app) => app._id !== id)
                 );
-    
+
             }
             else {
                 Swal.fire({
@@ -148,12 +150,31 @@ const MyApplyListPage = () => {
 
     return (
         <div>
-            <Helmet> 
+            <Helmet>
                 <title> My Applications </title>
+
             </Helmet>
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-red-950 underline pt-20 lg:pt-28 pb-8 ml-4 lg:ml-12">
-                My Applications:
-            </h2>
+
+            <div className="md:flex gap-10  justify-between items-center">
+                <div>
+                    <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-red-950 underline pt-20 lg:pt-28 pb-3 md:pb-8 ml-4 lg:ml-12">
+                        My Applications:
+                    </h2>
+                </div>
+
+                <div className="md:pt-16 lg:pt-22 mr-20 lg:mr-32 flex items-center pb-3 md:pb-0 pl-4 md:pl-0 gap-2">
+                    <div className="text-xl md:text-3xl font-extrabold">
+                        <CiSearch />
+                    </div>
+                    <input
+                        onKeyUp={(e) => setSearch(e.target.value)}
+                        type="text"
+                        className="w-[400px]  lg:w-[500px] py-1 md:py-2 pl-2 border border-gray-400 placeholder-gray-700 text-black"
+                        placeholder="Search marathons by title"
+                    />
+                </div>
+
+            </div>
             <div className="w-[90%] mx-auto mb-40">
                 {/* Application Table */}
                 <div className="overflow-x-auto bg-white text-black">
@@ -211,14 +232,14 @@ const MyApplyListPage = () => {
                                             <span className="label-text text-black text-lg">Title</span>
                                         </label>
                                         <input
-                                        name="title"
-                                        type="text"
-                                        className="input input-bordered w-full"
-                                        value={selectedApplication.marathonTitle}
-                                        readOnly
-                                        required
-                                    />
-                                        
+                                            name="title"
+                                            type="text"
+                                            className="input input-bordered w-full"
+                                            value={selectedApplication.marathonTitle}
+                                            readOnly
+                                            required
+                                        />
+
                                     </div>
                                     <div className="form-control w-[48%]">
                                         <label className="label mb-1">
@@ -231,9 +252,9 @@ const MyApplyListPage = () => {
                                             required
                                         />
                                     </div>
-                                    
+
                                 </div>
-                                
+
                                 <div className="form-control w-full mt-1">
                                     <label className="label mb-2">
                                         <span className="label-text text-black text-lg">First Name</span>
@@ -246,7 +267,7 @@ const MyApplyListPage = () => {
                                         required
                                     />
                                 </div>
-                                
+
 
                                 <div className="form-control w-full mt-1">
                                     <label className="label mb-1">
@@ -289,7 +310,7 @@ const MyApplyListPage = () => {
                                 </div>
 
                                 <div className="modal-action">
-                                    <button type="submit"  className="px-6 py-2 rounded-xl text-white bg-blue-700">
+                                    <button type="submit" className="px-6 py-2 rounded-xl text-white bg-blue-700">
                                         Update
                                     </button>
                                     <button className="btn" onClick={closeUpdateModal}>

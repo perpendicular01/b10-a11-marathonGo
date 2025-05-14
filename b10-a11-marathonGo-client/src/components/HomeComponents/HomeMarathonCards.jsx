@@ -6,12 +6,12 @@ const HomeMarathonCards = () => {
 
     useEffect(()=> {
         const fetchMarathons = async() => {
-            const res = await fetch('http://localhost:5000/marathons');
+            const res = await fetch('https://b10-a11-marathon-go-server.vercel.app/marathons/highlighted');
             const data = await res.json()
             
             
     
-            setMarathons(data.slice(0, 6));
+            setMarathons(data);
             // console.log(data)
         }
 

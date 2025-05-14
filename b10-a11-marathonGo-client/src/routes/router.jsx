@@ -33,7 +33,7 @@ const router = createBrowserRouter([
                 path: '/registrationForm/:id',
                 element: <RegistrationForm></RegistrationForm>,
                 loader: async({params}) => {
-                    const res = await fetch(`http://localhost:5000/marathons/${params.id}`)
+                    const res = await fetch(`https://b10-a11-marathon-go-server.vercel.app/marathons/${params.id}`)
                     const marathon = await res.json();
                     return marathon;
                 }
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
                 path: '/marathon/:id',
                 element: <PrivateRouter> <MarathonDetails></MarathonDetails> </PrivateRouter> ,
                 loader: async({params}) => {
-                    const res = await fetch(`http://localhost:5000/marathons/${params.id}`)
+                    const res = await fetch(`https://b10-a11-marathon-go-server.vercel.app/marathons/${params.id}`, {withCredentials: true})
                     const marathon = await res.json();
                     return marathon;
                 }
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
                 path: '/updateMarathon/:id',
                 element: <PrivateRouter> <div></div> </PrivateRouter>,
                 loader: async({params}) => {
-                    const res = await fetch(`http://localhost:5000/marathons/${params.id}`)
+                    const res = await fetch(`https://b10-a11-marathon-go-server.vercel.app/marathons/${params.id}`)
                     const marathon = await res.json()
                     return marathon;
                 }
